@@ -1,5 +1,6 @@
+package edu.upenn.cit594;
 
-public class HelloGit {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
