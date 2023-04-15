@@ -12,13 +12,17 @@ import edu.upenn.cit594.util.SoloProjectException;
 import edu.upenn.cit594.util.Tweet;
 public class JSONFileReader {
 	
+	JSONFileReader jReader;
 	
+	public JSONFileReader() {
+		
+	}
 	/**
 	 * this method will return a JSONObject from reading the file
 	 * @return return all tweet in a list
 	 * 
 	 */
-	public static List<Tweet> readAllTweet(String filename) {
+	public  List<Tweet> readAllTweet(String filename) {
 		List<Tweet> res = new ArrayList<>();
 		JSONArray jo = null;
 		try {
@@ -40,7 +44,7 @@ public class JSONFileReader {
 	 * @return all tweet information from the JSONArray
 	 */
 	@SuppressWarnings("unused")
-	private static List<Tweet> processTweets(JSONArray ja){
+	private  List<Tweet> processTweets(JSONArray ja){
 		List<Tweet> res = new ArrayList<>();
 		JSONObject jo = null;
 		Iterator<?> itr = ja.iterator();
