@@ -2,6 +2,8 @@ package edu.upenn.cit594.datamanagement;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.Stack;
 
 public class CSVReader {
 
-    private HashMap<String, Integer> headerID;
+    private HashMap<String, Integer> headerID = new HashMap<>();
     private BufferedReader br;
     private String filename;
     private CharacterReader reader;
@@ -188,8 +190,8 @@ public class CSVReader {
     }
 
     public int getFieldPerHeader(String header){
-        int headerID = this.headerID.get(header);
-        return headerID;
+        int ID = this.headerID.get(header);
+        return ID;
 
     }
 
@@ -201,6 +203,18 @@ public class CSVReader {
         }
         return allRows;
 
+    }
+
+    public boolean checkTimeFormat(String timestamp){
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        try{
+            LocalDateTime.parse(timestamp, format);
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

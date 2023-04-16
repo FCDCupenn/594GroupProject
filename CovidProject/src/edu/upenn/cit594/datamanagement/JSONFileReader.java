@@ -1,16 +1,16 @@
 package edu.upenn.cit594.datamanagement;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
 
 import edu.upenn.cit594.util.Covid;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 public class JSONFileReader {
 	
 	
@@ -83,10 +83,10 @@ public class JSONFileReader {
 //				e.printStackTrace();
 //			}
 
-			Covid covid = new Covid(covidContent.get(0), covidContent.get(1), covidContent.get(2), covidContent.get(3),
-					covidContent.get(4), covidContent.get(5), covidContent.get(6), covidContent.get(7), date);
-
-			res.add(covid);
+//			Covid covid = new Covid(covidContent.get(0), covidContent.get(1), covidContent.get(2), covidContent.get(3),
+//					covidContent.get(4), covidContent.get(5), covidContent.get(6), covidContent.get(7), date);
+//
+//			res.add(covid);
 		}
 		return res;
 	}
