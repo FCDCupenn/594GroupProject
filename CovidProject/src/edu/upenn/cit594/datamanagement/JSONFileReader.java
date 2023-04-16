@@ -1,29 +1,42 @@
 package edu.upenn.cit594.datamanagement;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-import edu.upenn.cit594.util.SoloProjectException;
-import edu.upenn.cit594.util.Tweet;
+import edu.upenn.cit594.util.Covid;
 public class JSONFileReader {
 	
-	JSONFileReader jReader;
 	
+	
+	final static String ZIP_CODE = "zip_code";
+	final static String NEG = "NEG";
+	final static String POS = "POS";
+	final static String DEATH = "deaths";
+	final static String HOSPITALIZED = "hospitalized";
+	final static String PARTIALVAC = "partially_vaccinated";
+	final static String FULLYVAC = "fully_vaccinated";
+	final static String BOOSTER = "boosted";
+	final static String ETL_TIMESTAMP = "etl_timestamp";
+	String[] columnHeader = {ZIP_CODE, NEG, POS, DEATH, HOSPITALIZED, PARTIALVAC, FULLYVAC, BOOSTER, ETL_TIMESTAMP};
+	
+
 	public JSONFileReader() {
 		
 	}
 	/**
 	 * this method will return a JSONObject from reading the file
-	 * @return return all tweet in a list
+	 * @return return all Covid in a list
 	 * 
 	 */
-	public  List<Tweet> readAllTweet(String filename) {
-		List<Tweet> res = new ArrayList<>();
+	public  List<Covid> readAllCovid(String filename) {
+		List<Covid> res = new ArrayList<>();
 		JSONArray jo = null;
 		try {
 			
@@ -34,7 +47,7 @@ public class JSONFileReader {
 			e.printStackTrace();
 		}
 		
-		res = JSONFileReader.processTweets(jo);
+		res = this.processCovidData(jo);
 		return res;
 		
 	}
@@ -44,22 +57,40 @@ public class JSONFileReader {
 	 * @return all tweet information from the JSONArray
 	 */
 	@SuppressWarnings("unused")
-	private  List<Tweet> processTweets(JSONArray ja){
-		List<Tweet> res = new ArrayList<>();
-		JSONObject jo = null;
+	private List<Covid> processCovidData(JSONArray ja) {
+		List<Covid> res = new ArrayList<>();
+
 		Iterator<?> itr = ja.iterator();
 		while (itr.hasNext()) {
-			jo = (JSONObject) itr.next();
-			JSONArray coordinates = (JSONArray)jo.get("location");
-            Double latitude = (Double) coordinates.get(0);
-            Double longitude = (Double) coordinates.get(1);
-			String text = (String)jo.get("text");
-			Tweet tweet = new Tweet (latitude, longitude, text);
-			res.add(tweet);
-			
+			JSONObject jo = (JSONObject) itr.next();
+			ArrayList<Integer> covidContent = new ArrayList<>();
+			for (int i = 0; i < columnHeader.length - 1; i++) {
+				long covidInfo = jo.containsKey(columnHeader[i]) ? (Long) jo.get(columnHeader[i]) : 0;
+				covidContent.add((int)covidInfo);
+
+			}
+
+
+			String date = jo.containsKey(ETL_TIMESTAMP) ? ((String) jo.get(ETL_TIMESTAMP)).substring(0, 10) : null;
+			// if (date == null) throw IOException;
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			Date d = null;
+//			try {
+//				d = sdf.parse(date);
+//
+//			} catch (java.text.ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
+			Covid covid = new Covid(covidContent.get(0), covidContent.get(1), covidContent.get(2), covidContent.get(3),
+					covidContent.get(4), covidContent.get(5), covidContent.get(6), covidContent.get(7), date);
+
+			res.add(covid);
 		}
 		return res;
 	}
+	
 	
 	
 

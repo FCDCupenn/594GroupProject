@@ -11,11 +11,11 @@ public class Covid {
 	private int partialVaccinated;
 	private int fullyVaccinated;
 	private int booster;
-	private Date date;
-	private Date time;
+	private String date;
+	
 	
 	public Covid (int zipCode, int negTest, int posTest, int deathToll, int hospitalization, int partialVaccinated,
-			int fullyVaccinated, int booster,  Date date, Date time) {
+			int fullyVaccinated, int booster,  String date) {
 		
 		this.zipCode = zipCode;
 		this.negTest = negTest;
@@ -26,7 +26,6 @@ public class Covid {
 		this.fullyVaccinated = fullyVaccinated;
 		this.booster = booster;
 		this.date = date;
-		this.time = time;
 		
 	}
 
@@ -70,14 +69,11 @@ public class Covid {
 	}
 
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
 
-	public Date getTime() {
-		return time;
-	}
 
 	
 	
