@@ -1,9 +1,8 @@
 package edu.upenn.cit594.util;
-import java.util.Date;
 
 public class Covid {
 	
-	private int zipCode;
+	private String zipCode;
 	private int negTest;
 	private int posTest;
 	private int deathToll;
@@ -14,7 +13,7 @@ public class Covid {
 	private String date;
 	
 	
-	public Covid (int zipCode, int negTest, int posTest, int deathToll, int hospitalization, int partialVaccinated,
+	public Covid (String zipCode, int negTest, int posTest, int deathToll, int hospitalization, int partialVaccinated,
 			int fullyVaccinated, int booster,  String date) {
 		
 		this.zipCode = zipCode;
@@ -29,7 +28,7 @@ public class Covid {
 		
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
@@ -73,7 +72,12 @@ public class Covid {
 		return date;
 	}
 
-
+  // testing
+	public String toString() {
+		return "Covid [zipCode=" + zipCode + ", negTest=" + negTest + ", posTest=" + posTest + ", deathToll=" + deathToll
+				+ ", hospitalization=" + hospitalization + ", partialVaccinated=" + partialVaccinated
+				+ ", fullyVaccinated=" + fullyVaccinated + ", booster=" + booster + ", date=" + date + "]";
+	}
 
 	
 	
